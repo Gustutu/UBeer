@@ -27,6 +27,8 @@ public class ResultsActivity extends AppCompatActivity {
     private BarsAdapter bAdapter;
     private TextView test;
     private Button testButton;
+    private JSONObject JSONBar;
+    private Bar[] BarArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,29 @@ public class ResultsActivity extends AppCompatActivity {
         bAdapter=new BarsAdapter(getCoordinatesFromFile());
         barsView.setAdapter(bAdapter);
 
+        try {
+            JSONArray JSONBarArray=getCoordinatesFromFile().getJSONArray("results");
+            int JSONBarArrayLength=JSONBarArray.length();
+
+            BarArray=new Bar[JSONBarArrayLength];
+
+            for (int i=0;i<JSONBarArrayLength;i++)
+            {
+
+
+                JSONObject tmpJSONBar=JSONBarArray.getJSONObject(i);
+
+                BarArray[i]=new Bar(tmpJSONBar.getString("name"),tmpJSONBar.getString("vicinity"),Boolean.parseBoolean(tmpJSONBar.getJSONObject("opening_hours").getString("open_now")),Float.parseFloat(tmpJSONBar.getString("rating")));
+                //Log.d("bars", BarArray[i].getName());
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         barsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         test.setText("bonjour"+getCoordinatesFromFile().toString());
+
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
