@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">UBeer</string>
+    <string name="button_text">Search</string>
+    <string name="warning_title">Warning !</string>
+    <string name="warning_empty_message">Please enter a location for each person</string>
+    <string name="warning_notfound_message">Could not localise one of your addresses :(</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="button_text">Recherche</string>
+    <string name="warning_title">Attention !</string>
+    <string name="warning_empty_message">Veuillez entrez un lieu pour chaque personne</string>
+    <string name="warning_notfound_message">Nous n\'avons pas pu localiser l\'un d\'entre vous :(</string>
+</resources>
