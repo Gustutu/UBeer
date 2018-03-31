@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,6 +28,7 @@ import java.io.InputStream;
 public class ResultsActivity extends AppCompatActivity {
     public static final String COORDINATES_UPDATE = "com.octip.cours.inf4042_11.BIERS_UPDATE";
     private BarsAdapter bAdapter;
+    protected Context context;
     private TextView test;
     private Button testButton;
     private JSONObject JSONBar;
@@ -34,6 +38,8 @@ public class ResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        context = getApplicationContext();
 
         final RecyclerView barsView = (RecyclerView) findViewById(R.id.rv_bars);
         final Context context = getApplicationContext();
@@ -78,6 +84,26 @@ public class ResultsActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.A:
+                break;
+            case R.id.B:
+                startActivity(new Intent(context, SetupActivity.class));
+                break;
+
+        }
+        return true;
     }
 
     public JSONObject getCoordinatesFromFile(){  //JsonArray
