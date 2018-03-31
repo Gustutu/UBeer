@@ -3,11 +3,41 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+
+>
 
     <TextView
-        android:id="@+id/rv_bar_element_location"
+        android:id="@+id/rv_bar_element_name"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:text="Babar"
+        />
+
+    <TextView
+        android:id="@+id/rv_bar_element_isOpen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="super bar de la mort qui tu sa race"
+        android:layout_below="@+id/rv_bar_element_name"
+        />
+
+
+
+    <TextView
+        android:id="@+id/rv_bar_element_rate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="a" />
+        android:layout_alignParentRight="true"
+        android:textSize="20dp"
+        android:text="3.5" />
+
 </RelativeLayout>

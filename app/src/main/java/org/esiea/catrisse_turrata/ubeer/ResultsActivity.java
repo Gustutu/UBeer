@@ -40,6 +40,8 @@ public class ResultsActivity extends AppCompatActivity {
         test = (TextView) findViewById(R.id.test);
         testButton=(Button) findViewById(R.id.buttontest);
 
+
+
         bAdapter=new BarsAdapter(getCoordinatesFromFile());
         barsView.setAdapter(bAdapter);
 
