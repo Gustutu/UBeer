@@ -91,26 +91,7 @@ public class ResultsActivity extends AppCompatActivity {
         }
         return true;
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-        switch(item.getItemId()){
-            case R.id.A:
-                break;
-            case R.id.B:
-                startActivity(new Intent(context, SetupActivity.class));
-                break;
-
-        }
-        return true;
-    }
 
     public JSONObject getCoordinatesFromFile(){  //JsonArray
         try {
