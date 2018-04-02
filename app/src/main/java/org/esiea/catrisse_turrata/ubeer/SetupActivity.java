@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -24,14 +26,17 @@ import java.util.ArrayList;
 
 public class SetupActivity extends AppCompatActivity {
     private PersonsAdapter pAdapter;
-    public static final String COORDINATES_UPDATE = "updateeee";
-    public static final String COORDINATES_ERROR = "error";
-    private AlertDialog.Builder builder;
+    public static final String COORDINATES_UPDATE = "update";
+    private AlertDialog.Builder alertBuilder;
+    private NotificationManagerCompat notificationManager;
+    private NotificationCompat.Builder notifBuilder;
     protected Context context;
     protected RecyclerView personsView;
     protected Button addPerson;
     protected Button removePerson;
     protected Button searchButton;
+    protected Button gpsButton;
+    private GifImageView beerGif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +45,34 @@ public class SetupActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-
-
         personsView = (RecyclerView) findViewById(R.id.rv_persons);
         addPerson=(Button) findViewById(R.id.add_Person);
+        gpsButton=(Button) findViewById(R.id.gps_me);
         removePerson=(Button) findViewById(R.id.remove_Person);
         searchButton = (Button) findViewById(R.id.search);
+        beerGif = (GifImageView) findViewById(R.id.GifImageView);
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.load);
 
-        builder = new AlertDialog.Builder(this);
-        builder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert);
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
+        notificationManager = NotificationManagerCompat.from(this);
+
+        alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        })
+                .setIcon(android.R.drawable.ic_dialog_alert);
+        notifBuilder = new NotificationCompat.Builder(this, "A")
+                .setSmallIcon(R.drawable.beer_icon)
+                .setContentTitle(getString(R.string.notification_title))
+                .setContentText(getString(R.string.notification_text))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
 
         pAdapter = new PersonsAdapter();
         personsView.setAdapter(pAdapter);
@@ -72,6 +86,12 @@ public class SetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchClick();
+            }
+        });
+        gpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gpsMe();
             }
         });
         addPerson.setOnClickListener(new View.OnClickListener() {
@@ -88,8 +108,15 @@ public class SetupActivity extends AppCompatActivity {
         });
     }
 
+    public void gpsMe(){
+        PersonsAdapter.PersonsHolder p = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(0));
+        p.setLocation("a");
+
+    }
+
 
     public void searchClick(){
+        beerGif.setVisibility(View.VISIBLE);
         Toast toast = Toast.makeText(context, "Searching", Toast.LENGTH_SHORT);
         toast.show();
         ArrayList locations = new ArrayList<String>();
@@ -108,9 +135,10 @@ public class SetupActivity extends AppCompatActivity {
         if(!emptyFields){
             GetCoordinatesService.startActionCoordinates(context,locations);
         }else{
-            builder.setTitle(R.string.warning_title)
+            alertBuilder.setTitle(R.string.warning_title)
                     .setMessage(R.string.warning_empty_message);
-            builder.show();
+            alertBuilder.show();
+            beerGif.setVisibility(View.GONE);
         }
 
     }
@@ -127,10 +155,9 @@ public class SetupActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.A:
-                //pAdapter.addPerson();
                 break;
             case R.id.B:
-                //pAdapter.removePerson();
+                startActivity(new Intent(context, SetupActivity.class));
                 break;
 
         }
@@ -140,25 +167,20 @@ public class SetupActivity extends AppCompatActivity {
     public class CoordinatesUpdate extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            beerGif.setVisibility(View.GONE);
             int i = intent.getIntExtra("RESULT",0);
             Log.w("AAA",getIntent().toString());
             if(i==1){
                 Toast toast = Toast.makeText(getApplicationContext(), "received", Toast.LENGTH_SHORT);
                 toast.show();
+                notificationManager.notify(1, notifBuilder.build());
                 startActivity(new Intent(context, ResultsActivity.class));
             }else{
-                builder.setTitle(R.string.warning_title)
+                alertBuilder.setTitle(R.string.warning_title)
                         .setMessage(R.string.warning_notfound_message);
-                builder.show();
+                alertBuilder.show();
 
             }
-
-
-
-
-
-
-
 
         }
     }

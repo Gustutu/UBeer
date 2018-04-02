@@ -80,6 +80,9 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
             personLocation=(EditText) itemView.findViewById(R.id.rv_person_element_location);
         }
 
+        public void setLocation(String s){
+            this.personLocation.setText(s);
+        }
         public String getLocationAsString(){
             return String.valueOf(personLocation.getText());
         }
