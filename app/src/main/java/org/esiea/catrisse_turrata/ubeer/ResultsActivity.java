@@ -34,6 +34,7 @@ public class ResultsActivity extends AppCompatActivity {
     private JSONObject JSONBar;
     private Bar[] BarArray;
     //just a push test
+    //just a push test 2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
