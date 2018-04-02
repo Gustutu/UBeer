@@ -37,13 +37,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         final RecyclerView barsView = (RecyclerView) findViewById(R.id.rv_bars);
         final Context context = getApplicationContext();
-        test = (TextView) findViewById(R.id.test);
-        testButton=(Button) findViewById(R.id.buttontest);
-
-
-
-        bAdapter=new BarsAdapter(getCoordinatesFromFile());
-        barsView.setAdapter(bAdapter);
 
         try {
             JSONArray JSONBarArray=getCoordinatesFromFile().getJSONArray("results");
@@ -66,19 +59,8 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         barsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        test.setText("bonjour"+getCoordinatesFromFile().toString());
-
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                test.setText("bonjour"+getCoordinatesFromFile().toString());
-
-                Toast toast = Toast.makeText(context, "showing json", Toast.LENGTH_SHORT);
-                toast.show();
-
-
-            }
-        });
+        bAdapter=new BarsAdapter(BarArray);
+        barsView.setAdapter(bAdapter);
 
     }
 

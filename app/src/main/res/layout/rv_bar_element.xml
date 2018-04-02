@@ -26,7 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="15dp"
-        android:text="super bar de la mort qui tu sa race"
+        android:text="Open"
         android:layout_below="@+id/rv_bar_element_name"
         />
 
