@@ -59,7 +59,7 @@ public class ResultsActivity extends AppCompatActivity {
                 JSONObject tmpJSONBar=JSONBarArray.getJSONObject(i);
 
                 BarArray[i]=new Bar(tmpJSONBar.getString("name"),tmpJSONBar.getString("vicinity"),Boolean.parseBoolean(tmpJSONBar.getJSONObject("opening_hours").getString("open_now")),Float.parseFloat(tmpJSONBar.getString("rating")));
-                //Log.d("bars", BarArray[i].getName());
+                Log.d("bars", BarArray[i].getName());
             }
 
         } catch (JSONException e) {

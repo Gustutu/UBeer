@@ -14,6 +14,7 @@
         android:layout_width="109dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:text="aaa"
         android:inputType="textPersonName" />
 
     <EditText
@@ -21,6 +22,8 @@
         android:layout_width="318dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:text="16 Av. des Champs-Élysées, 75008 Paris"
+        />
 
 </LinearLayout>

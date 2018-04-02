@@ -40,6 +40,16 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
 
     @Override
     public void onBindViewHolder(PersonsAdapter.PersonsHolder holder, int position) {
+        if (position==1)
+        {
+            holder.personName.setText("aaa");
+            holder.personLocation.setText("16 avenuue des champs élysées paris");
+        }
+        else
+        {
+            holder.personName.setText("bbb");
+            holder.personLocation.setText("20 boulevard Hausseman");
+        }
         holder.personName.setHint(personsList.get(position).toString());
         holder.personLocation.setHint("address");
 
