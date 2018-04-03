@@ -177,7 +177,9 @@ public class SetupActivity extends AppCompatActivity {
             beerGif.setVisibility(View.GONE);
             int i = intent.getIntExtra("RESULT",0);
             Log.w("AAA",getIntent().toString());
+            Log.d("iii", "i is equal to:"+i);
             if(i==1){
+                Log.d("tag", "onReceive: now lauching results activity");
                 Toast toast = Toast.makeText(getApplicationContext(), "received", Toast.LENGTH_SHORT);
                 toast.show();
                 notificationManager.notify(1, notifBuilder.build());

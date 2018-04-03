@@ -33,6 +33,8 @@ public class ResultsActivity extends AppCompatActivity {
     private Button testButton;
     private JSONObject JSONBar;
     private Bar[] BarArray;
+    //just a push test
+    //just a push test 2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,6 @@ public class ResultsActivity extends AppCompatActivity {
 
         final RecyclerView barsView = (RecyclerView) findViewById(R.id.rv_bars);
         final Context context = getApplicationContext();
-        test = (TextView) findViewById(R.id.test);
-        testButton=(Button) findViewById(R.id.buttontest);
-
-        bAdapter=new BarsAdapter(getCoordinatesFromFile());
-        barsView.setAdapter(bAdapter);
 
         try {
             JSONArray JSONBarArray=getCoordinatesFromFile().getJSONArray("results");
@@ -62,7 +59,7 @@ public class ResultsActivity extends AppCompatActivity {
                 JSONObject tmpJSONBar=JSONBarArray.getJSONObject(i);
 
                 BarArray[i]=new Bar(tmpJSONBar.getString("name"),tmpJSONBar.getString("vicinity"),Boolean.parseBoolean(tmpJSONBar.getJSONObject("opening_hours").getString("open_now")),Float.parseFloat(tmpJSONBar.getString("rating")));
-                //Log.d("bars", BarArray[i].getName());
+                Log.d("bars", BarArray[i].getName());
             }
 
         } catch (JSONException e) {
@@ -70,19 +67,8 @@ public class ResultsActivity extends AppCompatActivity {
         }
 
         barsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        test.setText("bonjour"+getCoordinatesFromFile().toString());
-
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                test.setText("bonjour"+getCoordinatesFromFile().toString());
-
-                Toast toast = Toast.makeText(context, "showing json", Toast.LENGTH_SHORT);
-                toast.show();
-
-
-            }
-        });
+        bAdapter=new BarsAdapter(BarArray);
+        barsView.setAdapter(bAdapter);
 
     }
     @Override
@@ -105,6 +91,7 @@ public class ResultsActivity extends AppCompatActivity {
         }
         return true;
     }
+
 
     public JSONObject getCoordinatesFromFile(){  //JsonArray
         try {

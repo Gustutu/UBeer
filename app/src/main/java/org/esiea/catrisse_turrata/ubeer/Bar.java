@@ -4,26 +4,6 @@ package org.esiea.catrisse_turrata.ubeer;
  * Created by gustu on 23/03/2018.
  */
 
-//Ceci est un commentaire
-// blavpakoajoxjbzoucozucbozcbeozcjblzjbdcpiyshadciphjzbedvpjqbdpvojqbdpvjbzemvjq
-// sdmvjBSDMJdmojqsmdkjcnsodk<vnozkenvù<ijje^foiqhspmjf
-// bqmsjvfnqmsjfqmskjcbms<kdjvbqmsijdbcmqsjebvpSIJEBFMsjd
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-// cbmoejbfqsojdbvmZJEBQSOJDBVMQEOKRGN¨QSODIVN%QEKRNQ%SDJVNMO%Q
-//a
-//bc
-
-//pushing to update my branch with the master branch
-
-
 
 
 public class Bar {

@@ -15,11 +15,10 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
 
 
 
-    private JSONObject barsArray;
-    public BarsAdapter(JSONObject barsArray)
+    private Bar barsArray[];
+    public BarsAdapter(Bar barsArray[])
     {
         this.barsArray = barsArray;
-
     }
 
     @Override
@@ -32,21 +31,20 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
 
     @Override
     public void onBindViewHolder(BarsAdapter.BarsHolder holder, int position) {
-        /*try {
-            String actualBar = barsArray.getJSONObject(position).getString("name");
-            holder.barName.setText(actualBar);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }*/
 
+            holder.barName.setText(barsArray[position].getName());
+            holder.barRate.setText(Float.toString(barsArray[position].getRank()));
+            holder.barIsOpen.setText(Boolean.toString(barsArray[position].getIsOpen()));
+            //ajouter chapmps adress xml....ect
+        
     }
 
     @Override
     public int getItemCount() {
-        return barsArray.length();
+        return barsArray.length;
     }
 
-    public void setData(JSONObject data){
+    public void setData(Bar data[]){
         this.barsArray = data;
         notifyDataSetChanged();
     }
@@ -54,9 +52,13 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
 
     class BarsHolder extends RecyclerView.ViewHolder{
         public TextView barName;
+        public TextView barRate;
+        public TextView barIsOpen;
         public BarsHolder(View itemView){
             super(itemView);
-            barName=(TextView) itemView.findViewById(R.id.rv_bar_element_location);
+            barName=(TextView) itemView.findViewById(R.id.rv_bar_element_name);
+            barIsOpen=(TextView) itemView.findViewById(R.id.rv_bar_element_isOpen);
+            barRate=(TextView) itemView.findViewById(R.id.rv_bar_element_rate);
 
         }
     }
