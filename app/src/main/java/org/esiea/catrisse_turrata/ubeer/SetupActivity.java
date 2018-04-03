@@ -1,12 +1,15 @@
 package org.esiea.catrisse_turrata.ubeer;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,7 +31,8 @@ public class SetupActivity extends AppCompatActivity {
     private PersonsAdapter pAdapter;
     public static final String COORDINATES_UPDATE = "update";
     private AlertDialog.Builder alertBuilder;
-    private NotificationManagerCompat notificationManager;
+    //private NotificationManagerCompat notificationManager;
+    private NotificationManager notificationManager;
     private NotificationCompat.Builder notifBuilder;
     protected Context context;
     protected RecyclerView personsView;
@@ -38,6 +42,9 @@ public class SetupActivity extends AppCompatActivity {
     protected Button gpsButton;
     private GifImageView beerGif;
     private boolean gpsOn;
+
+    private static final int NOTIFICATION_ID = 1;
+    private static final String NOTIFICATION_CHANNEL_ID = "my_notification_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +66,30 @@ public class SetupActivity extends AppCompatActivity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        notificationManager = NotificationManagerCompat.from(this);
+        //notificationManager = NotificationManagerCompat.from(this);
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
-        alertBuilder = new AlertDialog.Builder(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+
+            notificationChannel.setDescription("Channel description");
+            notificationChannel.enableLights(true);
+            notificationChannel.setLightColor(Color.RED);
+            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.enableVibration(true);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+            alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         })
                 .setIcon(android.R.drawable.ic_dialog_alert);
-        notifBuilder = new NotificationCompat.Builder(this, "A")
+
+
+        notifBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.beer_icon)
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_text))
@@ -182,7 +203,7 @@ public class SetupActivity extends AppCompatActivity {
                 Log.d("tag", "onReceive: now lauching results activity");
                 Toast toast = Toast.makeText(getApplicationContext(), "received", Toast.LENGTH_SHORT);
                 toast.show();
-                notificationManager.notify(1, notifBuilder.build());
+                notificationManager.notify(NOTIFICATION_ID, notifBuilder.build());
                 startActivity(new Intent(context, ResultsActivity.class));
             }else{
                 alertBuilder.setTitle(R.string.warning_title)

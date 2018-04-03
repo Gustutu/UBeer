@@ -177,22 +177,13 @@ public class GetCoordinatesService extends IntentService {
             try {
                 String urlString = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + averageLat + "," + averageLng + "&radius=500&type=bar&key=" + PLACES_API_KEY;
                 url = new URL(urlString);
-                Log.w("AAA", urlString);
-                Log.w("AAA", "coucou0");
-                ///ne vas pas plus loin que coucou0
                 HttpURLConnection conn2 = (HttpURLConnection) url.openConnection();
-                Log.d("AAA","coucoua");
                 conn2.setRequestMethod("GET");
-                Log.d("AAA","coucoub");
                 conn2.connect();
-                Log.d("AAA","coucou1");
                 if (HttpURLConnection.HTTP_OK == conn2.getResponseCode()) {
-                    Log.d("AAA","coucou2");
                     copyInputStreamToFile(conn2.getInputStream(),
                             new File(getCacheDir(), "bars.json"));
 
-
-                    Log.d("AAA","coordinates json download !");
                 }
 
             } catch (MalformedURLException e) {
