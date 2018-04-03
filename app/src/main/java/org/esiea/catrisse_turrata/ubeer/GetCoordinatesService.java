@@ -36,9 +36,10 @@ public class GetCoordinatesService extends IntentService {
     private static final String API_KEY = "AIzaSyBmuUqou3PJXUtJRRS2zZq6Ul7feXdH3EI";
     private static final String PLACES_API_KEY ="AIzaSyDh4ghFcDx-C5i9u4xFosBV47D0x_7DcZE";
     ArrayList locations;
-
+    boolean gps;
     // TODO: Rename parameters
     private static final String loc="locPARAM";
+    private static final String g="gpsPARAM";
     //private static final String EXTRA_PARAM2 = "com.gustutur.osef.test.extra.PARAM2";
 
     public GetCoordinatesService() {
@@ -52,13 +53,14 @@ public class GetCoordinatesService extends IntentService {
      * @see IntentService
      */
     // TODO: Customize helper method
-    public static void startActionCoordinates(Context context,ArrayList<String> l) {
+    public static void startActionCoordinates(Context context,ArrayList<String> l,boolean gps) {
 
 
         Intent intent = new Intent(context, GetCoordinatesService.class);
         intent.setAction(ACTION_COORDINATES);
 
         intent.putExtra(loc,l);
+        intent.putExtra(g,gps);
         //intent.putExtra(EXTRA_PARAM2, param2);
 
         context.startService(intent);
@@ -72,6 +74,7 @@ public class GetCoordinatesService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_COORDINATES.equals(action)) {
                 locations=intent.getStringArrayListExtra(loc);
+                gps=intent.getBooleanExtra(g,gps);
                 //final String param1 = intent.getStringExtra(EXTRA_PARAM1);
                 //final String param2 = intent.getStringExtra(EXTRA_PARAM2);
                 handleActionCoordinates();
@@ -85,9 +88,12 @@ public class GetCoordinatesService extends IntentService {
      */
     private void handleActionCoordinates() {
         Intent myIntent = new Intent(SetupActivity.COORDINATES_UPDATE);
-        Log.w("BBB",locations.size()+"");
-        String latitudes[] = new String[locations.size()];
-        String longitudes[] = new String[locations.size()];
+        int size=locations.size();
+        if(gps){
+            size++;
+        }
+        String latitudes[] = new String[size];
+        String longitudes[] = new String[size];
 
         for(int j=0;j<locations.size();j++) {
 
@@ -142,10 +148,15 @@ public class GetCoordinatesService extends IntentService {
             }
             //throw new UnsupportedOperationException("Not yet implemented");
         }
+
+        if(gps){
+
+        }
+
         double totalLat=0;
         double totalLng=0;
         boolean notFound=false;
-        for(int i=0;i<locations.size();i++){
+        for(int i=0;i<size;i++){
             if(latitudes[i]==null||longitudes[i]==null){
                     notFound=true;
             }else{
@@ -153,11 +164,10 @@ public class GetCoordinatesService extends IntentService {
                 totalLng+=Double.parseDouble(longitudes[i]);
             }
         }
+
         if(!notFound) {
-
-
-            String averageLat = String.valueOf(totalLat / locations.size());
-            String averageLng = String.valueOf(totalLng / locations.size());
+            String averageLat = String.valueOf(totalLat / size);
+            String averageLng = String.valueOf(totalLng / size);
 
             URL url = null;
 

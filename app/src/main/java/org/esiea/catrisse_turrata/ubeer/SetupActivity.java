@@ -37,6 +37,7 @@ public class SetupActivity extends AppCompatActivity {
     protected Button searchButton;
     protected Button gpsButton;
     private GifImageView beerGif;
+    private boolean gpsOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class SetupActivity extends AppCompatActivity {
         removePerson=(Button) findViewById(R.id.remove_Person);
         searchButton = (Button) findViewById(R.id.search);
         beerGif = (GifImageView) findViewById(R.id.GifImageView);
+        gpsOn=false;
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.load);
@@ -109,8 +111,9 @@ public class SetupActivity extends AppCompatActivity {
     }
 
     public void gpsMe(){
-        PersonsAdapter.PersonsHolder p = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(0));
-        p.setLocation("a");
+
+        PersonsAdapter.PersonsHolder p=(PersonsAdapter.PersonsHolder)personsView.findViewHolderForLayoutPosition(0);
+        p.changeGps();
 
     }
 
@@ -120,6 +123,7 @@ public class SetupActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, "Searching", Toast.LENGTH_SHORT);
         toast.show();
         ArrayList locations = new ArrayList<String>();
+        boolean gps=false;
         boolean emptyFields=false;
         for(int i=0;i<pAdapter.getItemCount();i++){
             PersonsAdapter.PersonsHolder p = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(i));
@@ -128,12 +132,15 @@ public class SetupActivity extends AppCompatActivity {
             if(s.length()<1){
                 emptyFields=true;
             }
-            Log.w("aaa",emptyFields+"");
-            locations.add(s);
-        }
 
+            if(s.equals("#MyLocation")){
+                gps=true;
+            }else{
+                locations.add(s);
+            }
+        }
         if(!emptyFields){
-            GetCoordinatesService.startActionCoordinates(context,locations);
+            GetCoordinatesService.startActionCoordinates(context,locations,gps);
         }else{
             alertBuilder.setTitle(R.string.warning_title)
                     .setMessage(R.string.warning_empty_message);
