@@ -1,6 +1,7 @@
 package org.esiea.catrisse_turrata.ubeer;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rv_bar_element, parent, false);
 
+
+
         return new BarsHolder(itemView);
     }
 
@@ -33,8 +36,8 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
     public void onBindViewHolder(BarsAdapter.BarsHolder holder, int position) {
 
             holder.barName.setText(barsArray[position].getName());
-            holder.barRate.setText(Float.toString(barsArray[position].getRank()));
-            holder.barIsOpen.setText(Boolean.toString(barsArray[position].getIsOpen()));
+            holder.barRate.setText(barsArray[position].getRank());
+            holder.barIsOpen.setText(barsArray[position].getIsOpen());
             //ajouter chapmps adress xml....ect
         
     }
@@ -50,7 +53,7 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
     }
 
 
-    class BarsHolder extends RecyclerView.ViewHolder{
+    class BarsHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         public TextView barName;
         public TextView barRate;
         public TextView barIsOpen;
@@ -60,6 +63,10 @@ public class BarsAdapter extends RecyclerView.Adapter<BarsAdapter.BarsHolder>{
             barIsOpen=(TextView) itemView.findViewById(R.id.rv_bar_element_isOpen);
             barRate=(TextView) itemView.findViewById(R.id.rv_bar_element_rate);
 
+        }
+        @Override
+        public void onClick(View view) {
+            Log.w("aaa","a");
         }
     }
 }

@@ -42,37 +42,40 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
 
     @Override
     public void onBindViewHolder(PersonsAdapter.PersonsHolder holder, int position) {
-        if (position==1)
-        {
-            holder.personName.setText("aaa");
-            holder.personLocation.setText("16 avenuue des champs élysées paris");
-        }
-        else
-        {
-            holder.personName.setText("bbb");
-            holder.personLocation.setText("20 boulevard Hausseman");
-        }
-        holder.personName.setHint(personsList.get(position).toString());
-        holder.personLocation.setHint("address");
+        holder.personName.setHint("Personne"+""+personsList.get(position).toString());
+        holder.personLocation.setHint(R.string.address);
+        boolean focusable;
+        String name;
+        String location;
+
+
 
         if(holder.gpsOn){
-            //holder.personName.setBackgroundColor(Color.parseColor("#d3d3d3"));
-            holder.personName.setFocusable(false);
-            holder.personName.setText("#Me");
+            focusable=false;
+            name="#Me";
+            location="#MyLocation";
 
-            //holder.personLocation.setBackgroundColor(Color.parseColor("#d3d3d3"));
-            holder.personLocation.setFocusable(false);
-            holder.personLocation.setText("#MyLocation");
-
-        }else{
-            //holder.personName.setBackgroundColor(Color.parseColor("#fff9e6"));  //R.color.colorPrimaryLight);
-            holder.personName.setFocusableInTouchMode(true);
-            holder.personName.setText("");
-
-            //holder.personLocation.setBackgroundColor(Color.parseColor("#fff9e6"));  //R.color.colorPrimaryLight);
-            holder.personLocation.setFocusableInTouchMode(true);
-            holder.personLocation.setText("");
+        }else if(holder.exemple==1){
+            focusable=true;
+            name="Arthur";
+            location="20 rue Emile Zola Nogent sur Marne";
             }
+        else if(holder.exemple==2){
+            focusable=true;
+            name="Augustin";
+            location="Paris";
+        }
+        else{
+            focusable=true;
+            name="";
+            location="";
+        }
+        holder.personName.setFocusableInTouchMode(focusable);
+        holder.personName.setText(name);
+
+        //holder.personLocation.setBackgroundColor(Color.parseColor("#fff9e6"));  //R.color.colorPrimaryLight);
+        holder.personLocation.setFocusableInTouchMode(focusable);
+        holder.personLocation.setText(location);
 
 
 
@@ -86,7 +89,7 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
     public void addPerson(){
         if(nbrPersons<6) {
             nbrPersons++;
-            personsList.add("person " + nbrPersons);
+            personsList.add(""+ nbrPersons);
             notifyDataSetChanged();
             //notifyItemInserted(nbrPersons-1);
         }
@@ -108,22 +111,23 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
         public EditText personName;
         public EditText personLocation;
         public boolean gpsOn;
+        public int exemple;
         public PersonsHolder(View itemView){
             super(itemView);
             personName=(EditText) itemView.findViewById(R.id.rv_person_element_name);
             personLocation=(EditText) itemView.findViewById(R.id.rv_person_element_location);
             gpsOn=false;
+            exemple=0;
         }
         public void changeGps(){
             gpsOn=!gpsOn;
-
             //personLocation.getBackground().setColorFilter(Color.parseColor("#006600"), PorterDuff.Mode.SRC_IN);
-
             notifyDataSetChanged();
         }
 
-        public void setLocation(String s){
-            this.personLocation.setText(s);
+        public void setExemple(int i){
+            this.exemple=i;
+            notifyDataSetChanged();
         }
         public String getLocationAsString(){
             return String.valueOf(personLocation.getText());

@@ -46,6 +46,15 @@ public class ResultsActivity extends AppCompatActivity {
         final RecyclerView barsView = (RecyclerView) findViewById(R.id.rv_bars);
         final Context context = getApplicationContext();
 
+        barsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        fillBars();
+        bAdapter=new BarsAdapter(BarArray);
+        barsView.setAdapter(bAdapter);
+
+    }
+
+    public void fillBars(){
         try {
             JSONArray JSONBarArray=getCoordinatesFromFile().getJSONArray("results");
             int JSONBarArrayLength=JSONBarArray.length();
@@ -54,21 +63,46 @@ public class ResultsActivity extends AppCompatActivity {
 
             for (int i=0;i<JSONBarArrayLength;i++)
             {
-
-
                 JSONObject tmpJSONBar=JSONBarArray.getJSONObject(i);
 
-                BarArray[i]=new Bar(tmpJSONBar.getString("name"),tmpJSONBar.getString("vicinity"),Boolean.parseBoolean(tmpJSONBar.getJSONObject("opening_hours").getString("open_now")),Float.parseFloat(tmpJSONBar.getString("rating")));
-                Log.d("bars", BarArray[i].getName());
+
+                String name;
+                String address;
+                String isOpen;
+                String rank;
+
+                if(tmpJSONBar.has("opening_hours")){
+                    if(tmpJSONBar.getJSONObject("opening_hours").has("open_now")){
+                        isOpen = tmpJSONBar.getJSONObject("opening_hours").getString("open_now");
+                    }else{
+                        isOpen="?";
+                    }
+                }else{
+                    isOpen="?";
+                }
+                if(tmpJSONBar.has("rating")){
+                    rank = tmpJSONBar.getString("rating");
+                }else{
+                    rank="?";
+                }
+                if(tmpJSONBar.has("name")){
+                    name = tmpJSONBar.getString("name");
+                }else{
+                    name="?";
+                }
+                if(tmpJSONBar.has("vicinity")){
+                    address = tmpJSONBar.getString("vicinity");
+                }else{
+                    address="?";
+                }
+
+                BarArray[i]=new Bar(name,address,isOpen,rank);
+                //Log.w("bars", BarArray[i].getName());
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        barsView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        bAdapter=new BarsAdapter(BarArray);
-        barsView.setAdapter(bAdapter);
 
     }
     @Override

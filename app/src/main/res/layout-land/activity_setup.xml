@@ -71,6 +71,20 @@
         android:textColor="@color/colorPrimaryLight"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/exemple"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/gps_me"
+        android:layout_marginStart="18dp"
+        android:layout_toEndOf="@+id/gps_me"
+        android:width="20dp"
+        android:height="20dp"
+        android:background="@drawable/round_button"
+        android:text="Exemple"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="10sp" />
+
     <org.esiea.catrisse_turrata.ubeer.GifImageView
         android:id="@+id/GifImageView"
         android:layout_width="wrap_content"

@@ -6,4 +6,6 @@
     <string name="warning_notfound_message">Nous n\'avons pas pu localiser l\'un d\'entre vous :(</string>
     <string name="notification_title">UBeer</string>
     <string name="notification_text">Des bars ont été trouvés !</string>
+    <string name="person">Personne </string>
+    <string name="address">Adresse </string>
 </resources>

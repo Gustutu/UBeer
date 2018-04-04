@@ -6,4 +6,6 @@
     <string name="warning_notfound_message">Could not localise one of your addresses :(</string>
     <string name="notification_title">UBeer</string>
     <string name="notification_text">Bars have been found !</string>
+    <string name="person">Person </string>
+    <string name="address">Address </string>
 </resources>

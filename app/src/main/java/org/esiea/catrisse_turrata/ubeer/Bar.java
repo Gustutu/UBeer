@@ -8,15 +8,17 @@ package org.esiea.catrisse_turrata.ubeer;
 
 public class Bar {
     String name;
-    String adress;
-    boolean isOPen;
-    float rank;
+    String address;
+    String isOpen;
+    String rank;
+    //boolean isOPen;
+    //float rank;
 
-    Bar(String name, String adress, boolean isOPen, float rank)
+    Bar(String name, String address, String isOpen, String rank)
     {
         this.name=name;
-        this.adress=adress;
-        this.isOPen=isOPen;
+        this.address=address;
+        this.isOpen=isOpen;
         this.rank=rank;
 
     }
@@ -34,13 +36,13 @@ public class Bar {
         return this.getAdress();
     }
 
-    public boolean getIsOpen()
+    public String getIsOpen()
     {
-        return this.isOPen;
+        return this.isOpen;
     }
 
 
-    public float getRank()
+    public String getRank()
     {
         return this.rank;
     }

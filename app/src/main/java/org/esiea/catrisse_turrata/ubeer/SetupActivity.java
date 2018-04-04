@@ -1,5 +1,7 @@
 package org.esiea.catrisse_turrata.ubeer;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -7,9 +9,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -34,12 +41,14 @@ public class SetupActivity extends AppCompatActivity {
     //private NotificationManagerCompat notificationManager;
     private NotificationManager notificationManager;
     private NotificationCompat.Builder notifBuilder;
+    private LocationManager locationManager;
     protected Context context;
     protected RecyclerView personsView;
     protected Button addPerson;
     protected Button removePerson;
     protected Button searchButton;
     protected Button gpsButton;
+    protected Button exempleButton;
     private GifImageView beerGif;
     private boolean gpsOn;
 
@@ -54,12 +63,13 @@ public class SetupActivity extends AppCompatActivity {
         context = getApplicationContext();
 
         personsView = (RecyclerView) findViewById(R.id.rv_persons);
-        addPerson=(Button) findViewById(R.id.add_Person);
-        gpsButton=(Button) findViewById(R.id.gps_me);
-        removePerson=(Button) findViewById(R.id.remove_Person);
+        addPerson = (Button) findViewById(R.id.add_Person);
+        gpsButton = (Button) findViewById(R.id.gps_me);
+        removePerson = (Button) findViewById(R.id.remove_Person);
         searchButton = (Button) findViewById(R.id.search);
+        exempleButton = (Button) findViewById(R.id.exemple);
         beerGif = (GifImageView) findViewById(R.id.GifImageView);
-        gpsOn=false;
+        gpsOn = false;
 
         GifImageView gifImageView = (GifImageView) findViewById(R.id.GifImageView);
         gifImageView.setGifImageResource(R.drawable.load);
@@ -68,6 +78,10 @@ public class SetupActivity extends AppCompatActivity {
 
         //notificationManager = NotificationManagerCompat.from(this);
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "My Notifications", NotificationManager.IMPORTANCE_DEFAULT);
@@ -80,7 +94,7 @@ public class SetupActivity extends AppCompatActivity {
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
-            alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -94,7 +108,6 @@ public class SetupActivity extends AppCompatActivity {
                 .setContentTitle(getString(R.string.notification_title))
                 .setContentText(getString(R.string.notification_text))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
 
 
         pAdapter = new PersonsAdapter();
@@ -129,12 +142,51 @@ public class SetupActivity extends AppCompatActivity {
                 pAdapter.removePerson();
             }
         });
+        exempleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exemple();
+            }
+        });
+    }
+
+    public void getLocation() {
+        Log.w("l", "loc");
+
+
+       /* int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            // ask permissions here using below code
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+
+        }
+        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        double d=locationGPS.getLatitude();
+        Log.w("l2",d+"");
+        */
     }
 
     public void gpsMe(){
 
-        PersonsAdapter.PersonsHolder p=(PersonsAdapter.PersonsHolder)personsView.findViewHolderForLayoutPosition(0);
+        //PersonsAdapter.PersonsHolder p=(PersonsAdapter.PersonsHolder)personsView.findViewHolderForLayoutPosition(0);
+        PersonsAdapter.PersonsHolder p = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(0));
         p.changeGps();
+        this.getLocation();
+
+    }
+    public void exemple(){
+        for(int i=0;i<8;i++){
+            pAdapter.removePerson();
+        }
+            pAdapter.addPerson();
+        PersonsAdapter.PersonsHolder p1 = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(0));
+        p1.setExemple(1);
+        PersonsAdapter.PersonsHolder p2 = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(1));
+        p2.setExemple(2);
+
 
     }
 
