@@ -1,12 +1,14 @@
 package org.esiea.catrisse_turrata.ubeer;
 
+import java.io.Serializable;
+
 /**
  * Created by gustu on 23/03/2018.
  */
 
 
 
-public class Bar {
+public class Bar implements Serializable {
     String name;
     String address;
     String isOpen;
@@ -31,9 +33,9 @@ public class Bar {
 
 
 
-    public String getAdress()
+    public String getAddress()
     {
-        return this.getAdress();
+        return this.address;
     }
 
     public String getIsOpen()

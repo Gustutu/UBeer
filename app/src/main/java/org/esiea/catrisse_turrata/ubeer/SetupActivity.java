@@ -89,7 +89,7 @@ public class SetupActivity extends AppCompatActivity {
             notificationChannel.setDescription("Channel description");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
-            notificationChannel.setVibrationPattern(new long[]{0, 1000, 500, 1000});
+            notificationChannel.setVibrationPattern(new long[]{0, 300, 500, 300});
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }
@@ -183,6 +183,7 @@ public class SetupActivity extends AppCompatActivity {
         }
             pAdapter.addPerson();
         PersonsAdapter.PersonsHolder p1 = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(0));
+
         p1.setExemple(1);
         PersonsAdapter.PersonsHolder p2 = (PersonsAdapter.PersonsHolder) personsView.getChildViewHolder(personsView.getChildAt(1));
         p2.setExemple(2);
@@ -234,8 +235,6 @@ public class SetupActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.A:
-                break;
             case R.id.B:
                 startActivity(new Intent(context, SetupActivity.class));
                 break;

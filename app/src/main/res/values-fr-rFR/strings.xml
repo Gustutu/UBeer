@@ -8,4 +8,6 @@
     <string name="notification_text">Des bars ont été trouvés !</string>
     <string name="person">Personne </string>
     <string name="address">Adresse </string>
+    <string name="open">Ouvert !</string>
+    <string name="closed">Fermé</string>
 </resources>

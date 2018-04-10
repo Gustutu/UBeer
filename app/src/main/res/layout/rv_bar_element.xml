@@ -8,6 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:orientation="vertical"
+    android:id="@+id/rv_bar_element"
 
 >
 

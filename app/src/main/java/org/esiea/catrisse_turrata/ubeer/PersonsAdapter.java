@@ -87,7 +87,9 @@ public class PersonsAdapter extends RecyclerView.Adapter<PersonsAdapter.PersonsH
     }
 
     public void addPerson(){
+        Log.w("a",nbrPersons+" aaa");
         if(nbrPersons<6) {
+            Log.w("a",nbrPersons+" bbb");
             nbrPersons++;
             personsList.add(""+ nbrPersons);
             notifyDataSetChanged();
