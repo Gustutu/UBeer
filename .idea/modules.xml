@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\arthu\AndroidStudioProjects\UBeerGit\UBeer.iml" filepath="C:\Users\arthu\AndroidStudioProjects\UBeerGit\UBeer.iml" />
       <module fileurl="file://$PROJECT_DIR$/UBeerGit.iml" filepath="$PROJECT_DIR$/UBeerGit.iml" />
-      <module fileurl="file://C:\Users\gustu\AndroidStudioProjects\UBeer\UBeerGit.iml" filepath="C:\Users\gustu\AndroidStudioProjects\UBeer\UBeerGit.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
